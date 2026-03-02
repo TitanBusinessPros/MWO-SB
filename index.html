@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tulsa, OK meta -->
+  <meta name="description" content="Free small business tools in Tulsa, OK: QR code maker, business card designer, invoice generator. Provided by Mail World Office.">
+  <meta name="keywords" content="Tulsa, small business, tools, QR code, business card, invoice, Oklahoma, Mail World Office, shipping, notary">
+  <meta name="geo.region" content="US-OK">
+  <meta name="geo.placename" content="Tulsa">
+  <meta name="geo.position" content="36.1539;-95.9928">
+  <meta name="ICBM" content="36.1539, -95.9928">
+  <title>Small Business Tools · Mail World Office | Tulsa, OK</title>
+  <link rel="icon" type="image/png" href="https://github.com/TitanBusinessPros/MWO-SB/raw/main/MWO-Logo-T.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Futuristic neon theme */
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(145deg, #0a0e1c 0%, #141b2b 100%);
+      color: #e0f2fe;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header, main, footer {
+      width: 100%;
+      max-width: 1400px;
+      padding: 1.5rem 2.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-container {
+      width: min(700px, 95%);
+      margin: 1rem 0 0.5rem;
+      filter: drop-shadow(0 0 25px cyan);
+      animation: softGlow 3s infinite alternate;
+    }
+    @keyframes softGlow {
+      0% { filter: drop-shadow(0 0 15px #0ff) drop-shadow(0 0 25px #0af); }
+      100% { filter: drop-shadow(0 0 25px #f0f) drop-shadow(0 0 35px #a0f); }
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: contain;
+      display: block;
+      border-radius: 30px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #a5f0ff, #c084fc, #ffb3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0.5rem 0 0.25rem;
+      text-shadow: 0 0 20px #0ff8;
+      letter-spacing: 1px;
+    }
+
+    .intro-paragraph {
+      font-size: 1.3rem;
+      max-width: 1000px;
+      margin: 1.5rem auto 1rem;
+      background: rgba(10, 20, 40, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid #00ffff33;
+      box-shadow: 0 0 30px #00b3ff33, inset 0 0 20px #00a6ff1a;
+      padding: 1.6rem 2.8rem;
+      border-radius: 80px 20px 80px 20px;
+      color: #e0f2ff;
+      font-weight: 400;
+    }
+
+    .mailbox-cta {
+      text-align: center;
+      margin: 0.5rem auto 2.5rem;
+    }
+    .mailbox-cta a {
+      display: inline-block;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border: 3px solid #0ff;
+      border-radius: 60px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px cyan, 0 0 15px magenta;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: 0.3s;
+    }
+    .mailbox-cta a:hover {
+      background: rgba(255, 0, 255, 0.3);
+      border-color: magenta;
+      box-shadow: 0 0 50px magenta, 0 0 30px cyan;
+      transform: scale(1.05);
+    }
+
+    /* Tools grid — 3 per row */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 2rem 0 3rem;
+    }
+
+    .tool-card {
+      background: rgba(12, 22, 38, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid #00ffffaa;
+      border-radius: 40px;
+      padding: 2rem 1.2rem 1.8rem;
+      box-shadow: 0 20px 40px -16px #000, 0 0 30px #00b8ffcc;
+      transition: 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      border-color: #ff66ff;
+      box-shadow: 0 0 40px cyan, 0 0 80px #f0f;
+      background: rgba(20, 30, 50, 0.9);
+    }
+
+    .tool-card a {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 30px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      line-height: 0;
+      border: 3px solid #00ffff;
+      transition: border 0.2s;
+      text-decoration: none;
+    }
+
+    .tool-card a:hover {
+      border-color: #ff99ff;
+    }
+
+    .tool-card img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: contain;
+      background: #0a1424;
+      border-radius: 27px;
+      transition: transform 0.3s, filter 0.4s;
+    }
+
+    .tool-card a:hover img {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 15px cyan);
+    }
+
+    .tool-card h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #b0f0ff, #dbb5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0.4rem 0 0.3rem;
+      text-shadow: 0 0 10px magenta;
+    }
+
+    .tool-card p {
+      font-size: 1rem;
+      color: #cbd5e1;
+      margin: 0;
+      padding: 0 0.4rem;
+      text-shadow: 0 0 5px #0ff;
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(2, 10, 22, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 2px solid #0ff;
+      border-radius: 60px 60px 0 0;
+      margin-top: auto;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      box-shadow: 0 -10px 40px #0ff4;
+    }
+
+    footer a {
+      text-decoration: none;
+      border-bottom: none;
+      color: #9effff;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+    footer a:hover {
+      color: white;
+      text-shadow: 0 0 10px hotpink;
+    }
+
+    .footer-contact {
+      font-size: 1.3rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .footer-contact strong {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #0ff, #f6f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tulsa {
+      background: rgba(0, 255, 255, 0.08);
+      border: 1px solid #ff44ff66;
+      border-radius: 60px;
+      padding: 1.2rem 2rem;
+      max-width: 900px;
+      margin: 1.5rem auto 2rem;
+      font-size: 1.2rem;
+      color: #e2f0ff;
+      box-shadow: 0 0 30px #0ff4;
+    }
+
+    .footer-tulsa strong {
+      color: #ffccff;
+      font-weight: 700;
+      text-shadow: 0 0 10px magenta;
+    }
+
+    .footer-copyright {
+      border-top: 1px solid #0ff6;
+      padding-top: 2rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #b0e0ff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    @media (max-width: 1000px) {
+      .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 700px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+      header, main, footer { padding: 1rem 1.5rem; }
+      h1 { font-size: 2rem; }
+      .intro-paragraph { font-size: 1.1rem; padding: 1rem 1.5rem; }
+      .mailbox-cta a { font-size: 1.2rem; padding: 0.8rem 1.2rem; }
+      .footer-tulsa { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-header">
+      <div class="logo-container">
+        <img src="https://github.com/TitanBusinessPros/MWO-SB/raw/main/MWO-Logo-T.png" 
+             alt="Mail World Office logo" 
+             width="700" height="700">
+      </div>
+      <h1>Small Business Made Easy by Mail World Office</h1>
+      <div class="intro-paragraph">
+        ⚡ Free tools built for new small business owners. From QR codes and business cards to invoices — all with a futuristic edge. Powered by Mail World Office, your Tulsa shipping & business hub. ⚡
+      </div>
+      <div class="mailbox-cta">
+        <a href="https://www.mailworldofficeok.com/" target="_blank" rel="noopener">
+          PRIVATE MAILBOX RENTALS FOR YOUR HOME OR OFFICE
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="tools-grid" class="grid-container"></div>
+  </main>
+
+  <footer>
+    <div class="footer-contact">
+      <strong>Mail World Office</strong><br>
+      <a href="https://www.mailworldofficeok.com/" target="_blank" rel="noopener">www.mailworldofficeok.com</a><br>
+      <a href="tel:+19188142310">918-814-2310</a> · 
+      <a href="mailto:mailworldoffice@gmail.com">mailworldoffice@gmail.com</a>
+    </div>
+
+    <div class="footer-tulsa">
+      <strong>Tulsa’s Authorized ShipCenter & Authorized Shipping Outlet</strong><br>
+      📞 CALL TODAY — RENTALS, PACKAGING, SHIPPING, AND NOTARY SERVICES FOR SMALL BUSINESSES IN TULSA
+    </div>
+
+    <div class="footer-copyright">
+      <span>© 2026 Mail World Office, Tulsa, OK — This free website is provided by Mail World Office out of Tulsa, Oklahoma.</span>
+      <span>📍 918-814-2310</span>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // Each tool now has its own link (index.html-1 through index.html-12)
+      const tools = [
+        { name: "QR CODE MAKER", desc: "Custom QR codes with neon scan effects. Connects customers instantly.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-1" },
+        { name: "BUSINESS CARD MAKER", desc: "Futuristic card designs that stand out in any stack.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-2" },
+        { name: "INVOICE GENERATOR", desc: "Lightning-fast invoices with cyber security.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-3" },
+        { name: "LOGO CREATOR", desc: "AI-powered logos with holographic finish.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-4" },
+        { name: "FLYER DESIGNER", desc: "Glow-in-the-dark flyer templates.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-5" },
+        { name: "SOCIAL MEDIA POST MAKER", desc: "Synthwave layouts for all platforms.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-6" },
+        { name: "BROCHURE MAKER", desc: "Tri-fold brochures with augmented reality ready.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-7" },
+        { name: "LABEL PRINTER", desc: "Holographic address and product labels.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-8" },
+        { name: "ESTIMATE GENERATOR", desc: "Professional estimates with data encryption.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-9" },
+        { name: "RECEIPT MAKER", desc: "Digital receipts with blockchain-ready timestamps.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-10" },
+        { name: "NEWSLETTER CREATOR", desc: "Neon newsletters that pop in inboxes.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-11" },
+        { name: "POSTCARD DESIGNER", desc: "Direct mail postcards with QR + AR triggers.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-12" }
+      ];
+
+      const grid = document.getElementById('tools-grid');
+
+      if (grid) {
+        let html = '';
+        for (let i = 0; i < tools.length; i++) {
+          const tool = tools[i];
+          html += `
+            <div class="tool-card">
+              <a href="${tool.link}" target="_blank" rel="noopener">
+                <img src="${tool.img}" alt="${tool.name} - free tool by Mail World Office" loading="lazy">
+              </a>
+              <h3>${tool.name}</h3>
+              <p>${tool.desc}</p>
+            </div>
+          `;
+        }
+        grid.innerHTML = html;
+      }
+    })();
+  </script>
+</body>
+</html>
