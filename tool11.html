@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolicyPro Handbook Builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb800;
+            --info: #4895ef;
+            --danger: #f72585;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: visible;
+            white-space: normal; 
+            overflow-wrap: break-word;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+        
+        .tagline {
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .app-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        
+        .form-container {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            overflow: visible;
+            overflow-wrap: break-word;
+        }
+        
+        .preview-container {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+            width: 100%;
+        }
+        
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            height: 4px;
+            width: 100%;
+            background: var(--light-gray);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .step {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 4px solid var(--light-gray);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .step.completed {
+            border-color: var(--success);
+            background: var(--success);
+            color: white;
+        }
+        
+        .step-form {
+            display: none;
+            width: 100%;
+        }
+        
+        .step-form.active {
+            display: block;
+        }
+        
+        .form-title {
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.5rem;
+            word-wrap: break-word;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-item input {
+            width: auto;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            width: 100%;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .btn-prev {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-prev:hover {
+            background: #dcdde1;
+        }
+        
+        .btn-next {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-next:hover {
+            background: var(--secondary);
+        }
+        
+        .btn-export {
+            background: var(--success);
+            color: white;
+            margin-top: 20px;
+        }
+        
+        .btn-export:hover {
+            background: #3a9bc5;
+        }
+        
+        .preview-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .handbook-preview {
+            flex: 1;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fff;
+            width: 100%;
+            box-sizing: border-box;
+            max-height: 600px;
+        }
+        
+        .handbook-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .handbook-content {
+            line-height: 1.6;
+            width: 100%;
+            overflow-wrap: break-word;
+        }
+        
+        .policy-section {
+            margin-bottom: 25px;
+            width: 100%;
+        }
+        
+        .policy-title {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid var(--light-gray);
+            padding-bottom: 5px;
+        }
+        
+        .export-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        
+        .export-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+        }
+        
+        .html-export {
+            background: var(--info);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            background: var(--success);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(100vw);
+            transition: transform 0.3s ease-out;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .break-time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .break-time-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+        }
+        
+        /* Formatting for exported content */
+        .formatted-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        .formatted-content h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .formatted-content h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 5px;
+        }
+        
+        .formatted-content h3 {
+            color: var(--info);
+            margin: 20px 0 10px 0;
+        }
+        
+        .formatted-content p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+        
+        .formatted-content ul, .formatted-content ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        .formatted-content li {
+            margin-bottom: 8px;
+        }
+        
+        .formatted-content .policy-section {
+            margin-bottom: 30px;
+        }
+        
+        .formatted-content .policy-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .export-options {
+                flex-direction: column;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn-container button {
+                width: 100%;
+            }
+            
+            .step-indicator {
+                gap: 5px;
+            }
+            
+            .step {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .break-time-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .formatted-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+  <!-- Back to Directory Button -->
+<button class="back-button" onclick="goToDirectory()">⬅ Push me to go back</button>
+
+<style>
+  .back-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.2s ease;
+    z-index: 9999;
+  }
+  .back-button:hover {
+    background-color: #d5d5d5;
+  }
+</style>
+
+<script>
+  function goToDirectory() {
+    google.script.run.withSuccessHandler(function(htmlContent) {
+      document.open();
+      document.write(htmlContent);
+      document.close();
+    }).getDirectoryContent();
+  }
+</script>
+    <div class="container">
+        <header>
+            <h1>TBP Policy Handbook Builder</h1>
+            <p class="tagline">Create Professional Employee Handbooks In Minutes/Must Press Enter At End Of Frame To Avoid Text Misalignment</p>
+        </header>
+        
+        <div class="app-container">
+            <div class="form-container">
+                <div class="step-indicator">
+                    <div class="step active" id="step-1">1</div>
+                    <div class="step" id="step-2">2</div>
+                    <div class="step" id="step-3">3</div>
+                    <div class="step" id="step-4">4</div>
+                    <div class="step" id="step-5">5</div>
+                    <div class="step" id="step-6">6</div>
+                </div>
+                
+                <form id="handbook-form">
+                    <!-- Step 1: Company Information -->
+                    <div class="step-form active" id="form-step-1">
+                        <h2 class="form-title">Company Information</h2>
+                        
+                        <div class="form-group">
+                            <label for="company-name">Company Name</label>
+                            <input type="text" id="company-name" placeholder="Enter your company name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-address">Company Address</label>
+                            <textarea id="company-address" placeholder="Enter your company address"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-website">Company Website</label>
+                            <input type="url" id="company-website" placeholder="https://example.com">
+                        </div>
+                        
+                        <div class="btn-container">
+                            <div></div>
+                            <button type="button" class="btn-next" onclick="nextStep(1)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Employment Policies -->
+                    <div class="step-form" id="form-step-2">
+                        <h2 class="form-title">Employment Policies</h2>
+                        
+                        <div class="form-group">
+                            <label for="work-hours">Standard Work Hours</label>
+                            <input type="text" id="work-hours" placeholder="e.g., 9:00 AM - 5:00 PM, Monday to Friday">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="attendance-policy">Attendance Policy</label>
+                            <textarea id="attendance-policy" placeholder="Describe your attendance policy...">Employees are expected to arrive on time for their scheduled shifts. If you will be late or absent, you must notify your supervisor at least 2 hours before your shift begins. Excessive tardiness or absences may result in disciplinary action.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="remote-policy">Remote Work Policy</label>
+                            <textarea id="remote-policy" placeholder="Describe your remote work policy...">Remote work may be available for eligible positions with manager approval. Remote employees are expected to maintain regular work hours, be available during core business hours, and have a dedicated workspace free from distractions. All company policies apply to remote work arrangements.</textarea>
+                        </div>
+                        
+                        <div class="btn-container">
+                            <button type="button" class="btn-prev" onclick="prevStep(2)">Previous</button>
+                            <button type="button" class="btn-next" onclick="nextStep(2)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Break Time Policies -->
+                    <div class="step-form" id="form-step-3">
+                        <h2 class="form-title">Break Time Policies</h2>
+                        
+                        <div class="form-group">
+                            <label>Break Types</label>
+                            <div class="break-time-grid">
+                                <div class="break-time-item">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="lunch-break" checked>
+                                        <label for="lunch-break">Lunch Break</label>
+                                    </div>
+                                    <input type="text" id="lunch-duration" placeholder="Duration (e.g., 60 minutes)" value="60 minutes">
+                                </div>
+                                
+                                <div class="break-time-item">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="coffee-break" checked>
+                                        <label for="coffee-break">Coffee Breaks</label>
+                                    </div>
+                                    <input type="text" id="coffee-duration" placeholder="Duration (e.g., 15 minutes)" value="15 minutes">
+                                </div>
+                                
+                                <div class="break-time-item">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="rest-break">
+                                        <label for="rest-break">Rest Breaks</label>
+                                    </div>
+                                    <input type="text" id="rest-duration" placeholder="Duration (e.g., 10 minutes)">
+                                </div>
+                                
+                                <div class="break-time-item">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="nursing-break">
+                                        <label for="nursing-break">Nursing Breaks</label>
+                                    </div>
+                                    <input type="text" id="nursing-duration" placeholder="Duration (e.g., 30 minutes)">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="break-policy">Break Policy Details</label>
+                            <textarea id="break-policy" placeholder="Describe your break time policies in detail...">Employees are entitled to one 60-minute lunch break for every 8 hours worked. Additional 15-minute coffee breaks are permitted twice per day, typically in mid-morning and mid-afternoon. Breaks should be scheduled to minimize disruption to workflow and operations.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="break-scheduling">Break Scheduling</label>
+                            <textarea id="break-scheduling" placeholder="Describe how breaks should be scheduled...">Breaks should be scheduled in coordination with your supervisor to ensure adequate coverage. Lunch breaks are typically taken between 11:00 AM and 2:00 PM based on team scheduling needs. Please communicate your break schedule with your team to maintain proper staffing levels.</textarea>
+                        </div>
+                        
+                        <div class="btn-container">
+                            <button type="button" class="btn-prev" onclick="prevStep(3)">Previous</button>
+                            <button type="button" class="btn-next" onclick="nextStep(3)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Leave Policies -->
+                    <div class="step-form" id="form-step-4">
+                        <h2 class="form-title">Leave Policies</h2>
+                        
+                        <div class="form-group">
+                            <label for="vacation-policy">Vacation Policy</label>
+                            <textarea id="vacation-policy" placeholder="Describe your vacation policy...">Full-time employees accrue 10 vacation days per year for the first three years of employment, increasing to 15 days after three years. Vacation requests should be submitted at least two weeks in advance and are subject to manager approval based on business needs.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="sick-leave">Sick Leave Policy</label>
+                            <textarea id="sick-leave" placeholder="Describe your sick leave policy...">Employees accrue 1 sick day per month of employment. Sick leave may be used for personal illness, medical appointments, or caring for ill family members. Please notify your supervisor as soon as possible if you need to use sick leave.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Other Leave Types</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="maternity-leave" checked>
+                                    <label for="maternity-leave">Maternity Leave</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="paternity-leave" checked>
+                                    <label for="paternity-leave">Paternity Leave</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="bereavement-leave" checked>
+                                    <label for="bereavement-leave">Bereavement Leave</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="btn-container">
+                            <button type="button" class="btn-prev" onclick="prevStep(4)">Previous</button>
+                            <button type="button" class="btn-next" onclick="nextStep(4)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 5: Code of Conduct -->
+                    <div class="step-form" id="form-step-5">
+                        <h2 class="form-title">Code of Conduct</h2>
+                        
+                        <div class="form-group">
+                            <label for="dress-code">Dress Code</label>
+                            <textarea id="dress-code" placeholder="Describe your dress code policy...">Our dress code is business casual. Clothing should be neat, clean, and appropriate for a professional environment. Please avoid clothing with offensive images or language, and ensure attire is not overly revealing. On Fridays, casual attire is permitted, but clothing should still be presentable and professional.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ethical-guidelines">Ethical Guidelines</label>
+                            <textarea id="ethical-guidelines" placeholder="Describe your ethical guidelines...">Employees are expected to act with integrity, honesty, and fairness in all business dealings. Conflicts of interest should be avoided or disclosed. Company resources should be used for business purposes only. All employees must maintain the confidentiality of proprietary information.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="social-media">Social Media Policy</label>
+                            <textarea id="social-media" placeholder="Describe your social media policy...">While we respect employees' personal social media use, please be mindful that sharing confidential company information is prohibited. When discussing the company online, be respectful and professional. Identify that opinions are your own and not representative of the company unless authorized.</textarea>
+                        </div>
+                        
+                        <div class="btn-container">
+                            <button type="button" class="btn-prev" onclick="prevStep(5)">Previous</button>
+                            <button type="button" class="btn-next" onclick="nextStep(5)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 6: Finalize -->
+                    <div class="step-form" id="form-step-6">
+                        <h2 class="form-title">Finalize Handbook</h2>
+                        
+                        <div class="form-group">
+                            <label for="handbook-title">Handbook Title</label>
+                            <input type="text" id="handbook-title" placeholder="e.g., Employee Handbook 2023" value="Employee Handbook">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="effective-date">Effective Date</label>
+                            <input type="date" id="effective-date">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additional-notes">Additional Notes</label>
+                            <textarea id="additional-notes" placeholder="Any additional information...">This handbook is provided as a guide to our company policies and procedures. Management reserves the right to modify these policies at any time. Please direct any questions about these policies to your supervisor or HR representative.</textarea>
+                        </div>
+                        
+                        <div class="btn-container">
+                            <button type="button" class="btn-prev" onclick="prevStep(6)">Previous</button>
+                            <button type="button" class="btn-next" onclick="generateHandbook()">Generate Handbook</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="preview-container">
+                <h2 class="preview-title">Handbook Preview</h2>
+                <div class="handbook-preview" id="handbook-preview">
+                    <div class="handbook-header">
+                        <h1>Your Handbook Preview</h1>
+                        <p>Complete the form to generate your policy handbook</p>
+                    </div>
+                    <div class="handbook-content">
+                        <p>As you fill out the form on the left, your handbook will appear here in real-time.</p>
+                        <p>You'll be able to export it as HTML when complete.</p>
+                    </div>
+                </div>
+                
+                <div class="export-options">
+                    <button class="export-btn html-export" onclick="exportHTML()">
+                        <i class="fas fa-code"></i> Export File
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">
+        Export completed successfully!
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+        
+        function updateStepIndicator() {
+            // Update step indicators
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepElement = document.getElementById(`step-${i}`);
+                if (i < currentStep) {
+                    stepElement.className = 'step completed';
+                } else if (i === currentStep) {
+                    stepElement.className = 'step active';
+                } else {
+                    stepElement.className = 'step';
+                }
+            }
+            
+            // Show current form step
+            document.querySelectorAll('.step-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(`form-step-${currentStep}`).classList.add('active');
+            
+            // Update preview as user fills the form
+            updatePreview();
+        }
+        
+        function nextStep(step) {
+            if (step < totalSteps) {
+                currentStep = step + 1;
+                updateStepIndicator();
+            }
+        }
+        
+        function prevStep(step) {
+            if (step > 1) {
+                currentStep = step - 1;
+                updateStepIndicator();
+            }
+        }
+        
+        // Format text into proper paragraphs
+        function formatText(text) {
+            if (!text) return '';
+            
+            // Split into sentences
+            const sentences = text.split(/(?<=[.!?])\s+/);
+            let paragraphs = [];
+            let currentParagraph = '';
+            
+            // Group sentences into paragraphs of 3-5 sentences
+            for (let i = 0; i < sentences.length; i++) {
+                currentParagraph += sentences[i] + ' ';
+                
+                if ((i + 1) % 4 === 0 || i === sentences.length - 1) {
+                    paragraphs.push(`<p>${currentParagraph.trim()}</p>`);
+                    currentParagraph = '';
+                }
+            }
+            
+            return paragraphs.join('');
+        }
+        
+        function updatePreview() {
+            const previewElement = document.getElementById('handbook-preview');
+            const companyName = document.getElementById('company-name').value || 'Company Name';
+            const handbookTitle = document.getElementById('handbook-title').value || 'Employee Handbook';
+            
+            if (currentStep === 1 && !companyName) {
+                return; // Don't update preview if we're on step 1 and no company name is entered
+            }
+            
+            let previewHTML = `
+                <div class="formatted-content">
+                <div class="policy-header">
+                    <h1>${handbookTitle}</h1>
+                    <h2>${companyName}</h2>
+                    <p>Effective: ${document.getElementById('effective-date').value || 'Date not set'}</p>
+                </div>
+            `;
+            
+            // Add company information
+            if (document.getElementById('company-name').value) {
+                previewHTML += `
+                    <div class="policy-section">
+                        <h2>Company Information</h2>
+                        <p><strong>Company Name:</strong> ${document.getElementById('company-name').value}</p>
+                        <p><strong>Address:</strong> ${document.getElementById('company-address').value || 'Not specified'}</p>
+                        <p><strong>Website:</strong> ${document.getElementById('company-website').value || 'Not specified'}</p>
+                    </div>
+                `;
+            }
+            
+            // Add employment policies if available
+            if (document.getElementById('work-hours').value || document.getElementById('attendance-policy').value) {
+                previewHTML += `
+                    <div class="policy-section">
+                        <h2>Employment Policies</h2>
+                        <p><strong>Work Hours:</strong> ${document.getElementById('work-hours').value || 'Not specified'}</p>
+                        ${formatText(document.getElementById('attendance-policy').value) || '<p>Not specified</p>'}
+                        ${formatText(document.getElementById('remote-policy').value) || '<p>Not specified</p>'}
+                    </div>
+                `;
+            }
+            
+            // Add break time policies if available
+            if (document.getElementById('break-policy').value) {
+                previewHTML += `
+                    <div class="policy-section">
+                        <h2>Break Time Policies</h2>
+                        ${formatText(document.getElementById('break-policy').value) || '<p>Not specified</p>'}
+                `;
+                
+                // Add break types
+                const breakTypes = [];
+                if (document.getElementById('lunch-break').checked) breakTypes.push('Lunch Break: ' + (document.getElementById('lunch-duration').value || 'Not specified'));
+                if (document.getElementById('coffee-break').checked) breakTypes.push('Coffee Breaks: ' + (document.getElementById('coffee-duration').value || 'Not specified'));
+                if (document.getElementById('rest-break').checked) breakTypes.push('Rest Breaks: ' + (document.getElementById('rest-duration').value || 'Not specified'));
+                if (document.getElementById('nursing-break').checked) breakTypes.push('Nursing Breaks: ' + (document.getElementById('nursing-duration').value || 'Not specified'));
+                
+                if (breakTypes.length > 0) {
+                    previewHTML += `<h3>Break Types</h3><ul>`;
+                    breakTypes.forEach(type => {
+                        previewHTML += `<li>${type}</li>`;
+                    });
+                    previewHTML += `</ul>`;
+                }
+                
+                previewHTML += `${formatText(document.getElementById('break-scheduling').value) || '<p>Not specified</p>'}`;
+                previewHTML += `</div>`;
+            }
+            
+            // Add leave policies if available
+            if (document.getElementById('vacation-policy').value || document.getElementById('sick-leave').value) {
+                previewHTML += `
+                    <div class="policy-section">
+                        <h2>Leave Policies</h2>
+                        ${formatText(document.getElementById('vacation-policy').value) || '<p>Not specified</p>'}
+                        ${formatText(document.getElementById('sick-leave').value) || '<p>Not specified</p>'}
+                        <h3>Other Leave Types</h3>
+                        <p>
+                `;
+                
+                const leaveTypes = [];
+                if (document.getElementById('maternity-leave').checked) leaveTypes.push('Maternity Leave');
+                if (document.getElementById('paternity-leave').checked) leaveTypes.push('Paternity Leave');
+                if (document.getElementById('bereavement-leave').checked) leaveTypes.push('Bereavement Leave');
+                
+                previewHTML += leaveTypes.join(', ') || 'None selected';
+                previewHTML += `</p></div>`;
+            }
+            
+            // Add code of conduct if available
+            if (document.getElementById('dress-code').value || document.getElementById('ethical-guidelines').value) {
+                previewHTML += `
+                    <div class="policy-section">
+                        <h2>Code of Conduct</h2>
+                        <h3>Dress Code</h3>
+                        ${formatText(document.getElementById('dress-code').value) || '<p>Not specified</p>'}
+                        <h3>Ethical Guidelines</h3>
+                        ${formatText(document.getElementById('ethical-guidelines').value) || '<p>Not specified</p>'}
+                        <h3>Social Media Policy</h3>
+                        ${formatText(document.getElementById('social-media').value) || '<p>Not specified</p>'}
+                    </div>
+                `;
+            }
+            
+            // Add additional notes if available
+            if (document.getElementById('additional-notes').value) {
+                previewHTML += `
+                    <div class="policy-section">
+                        <h2>Additional Notes</h2>
+                        ${formatText(document.getElementById('additional-notes').value)}
+                    </div>
+                `;
+            }
+            
+            previewHTML += `</div>`;
+            previewElement.innerHTML = previewHTML;
+        }
+        
+        function generateHandbook() {
+            showNotification('Handbook generated successfully!');
+            updatePreview();
+        }
+        
+        function exportHTML() {
+            const handbookElement = document.getElementById('handbook-preview');
+            const htmlContent = handbookElement.innerHTML;
+            
+            const exportHTML = `<!DOCTYPE html>
+            <html>
+            <head>
+                <title>Employee Handbook</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body { 
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                        line-height: 1.8; 
+                        padding: 20px; 
+                        max-width: 900px; 
+                        margin: 0 auto; 
+                        color: #333;
+                        background: white;
+                    }
+                    h1 { 
+                        color: #4361ee; 
+                        text-align: center;
+                        margin-bottom: 10px;
+                        font-size: 2.5rem;
+                    }
+                    h2 { 
+                        color: #3a0ca3; 
+                        margin: 30px 0 15px 0;
+                        border-bottom: 2px solid #e9ecef;
+                        padding-bottom: 5px;
+                    }
+                    h3 {
+                        color: #4895ef;
+                        margin: 20px 0 10px 0;
+                    }
+                    p { 
+                        margin-bottom: 16px; 
+                        text-align: justify;
+                    }
+                    ul, ol { 
+                        margin: 15px 0; 
+                        padding-left: 30px; 
+                    }
+                    li { 
+                        margin-bottom: 8px; 
+                    }
+                    .policy-section { 
+                        margin-bottom: 30px; 
+                    }
+                    .policy-header { 
+                        text-align: center; 
+                        margin-bottom: 40px; 
+                        padding-bottom: 20px; 
+                        border-bottom: 2px solid #e9ecef; 
+                    }
+                    @media print {
+                        body { 
+                            padding: 0; 
+                            font-size: 12pt; 
+                        }
+                        h1 { font-size: 18pt; }
+                        h2 { font-size: 16pt; }
+                        h3 { font-size: 14pt; }
+                    }
+                </style>
+            </head>
+            <body>
+                ${htmlContent}
+            </body>
+            </html>`;
+            
+            const blob = new Blob([exportHTML], { type: 'text/html' });
+            
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'employee_handbook.html';
+            a.click();
+            
+            showNotification('HTML exported successfully!');
+        }
+        
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Add event listeners to update preview as user types
+        document.querySelectorAll('input, textarea').forEach(element => {
+            element.addEventListener('input', updatePreview);
+        });
+        
+        // Initialize the preview
+        updatePreview();
+        
+        // Set today's date as default effective date
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1;
+        let dd = today.getDate();
+        
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        
+        const formattedToday = `${yyyy}-${mm}-${dd}`;
+        document.getElementById('effective-date').value = formattedToday;
+    </script>
+</body>
+</html>
