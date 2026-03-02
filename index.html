@@ -13,13 +13,12 @@
   <title>Small Business Tools · Mail World Office | Tulsa, OK</title>
   <link rel="icon" type="image/png" href="https://github.com/TitanBusinessPros/MWO-SB/raw/main/MWO-Logo-T.png">
   <style>
+    /* (styles unchanged – keep your existing futuristic CSS) */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
-    /* Futuristic neon theme */
     body {
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       background: linear-gradient(145deg, #0a0e1c 0%, #141b2b 100%);
@@ -32,7 +31,6 @@
       position: relative;
       overflow-x: hidden;
     }
-
     body::before {
       content: "";
       position: fixed;
@@ -44,7 +42,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
     header, main, footer {
       width: 100%;
       max-width: 1400px;
@@ -52,7 +49,6 @@
       position: relative;
       z-index: 2;
     }
-
     .logo-header {
       display: flex;
       flex-direction: column;
@@ -60,7 +56,6 @@
       text-align: center;
       margin-bottom: 1.5rem;
     }
-
     .logo-container {
       width: min(700px, 95%);
       margin: 1rem 0 0.5rem;
@@ -71,7 +66,6 @@
       0% { filter: drop-shadow(0 0 15px #0ff) drop-shadow(0 0 25px #0af); }
       100% { filter: drop-shadow(0 0 25px #f0f) drop-shadow(0 0 35px #a0f); }
     }
-
     .logo-container img {
       width: 100%;
       height: auto;
@@ -80,7 +74,6 @@
       display: block;
       border-radius: 30px;
     }
-
     h1 {
       font-size: 2.8rem;
       font-weight: 700;
@@ -92,7 +85,6 @@
       text-shadow: 0 0 20px #0ff8;
       letter-spacing: 1px;
     }
-
     .intro-paragraph {
       font-size: 1.3rem;
       max-width: 1000px;
@@ -107,7 +99,6 @@
       color: #e0f2ff;
       font-weight: 400;
     }
-
     .mailbox-cta {
       text-align: center;
       margin: 0.5rem auto 2.5rem;
@@ -134,15 +125,12 @@
       box-shadow: 0 0 50px magenta, 0 0 30px cyan;
       transform: scale(1.05);
     }
-
-    /* Tools grid — 3 per row */
     .grid-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
       margin: 2rem 0 3rem;
     }
-
     .tool-card {
       background: rgba(12, 22, 38, 0.7);
       backdrop-filter: blur(12px);
@@ -157,14 +145,12 @@
       align-items: center;
       text-align: center;
     }
-
     .tool-card:hover {
       transform: translateY(-12px) scale(1.02);
       border-color: #ff66ff;
       box-shadow: 0 0 40px cyan, 0 0 80px #f0f;
       background: rgba(20, 30, 50, 0.9);
     }
-
     .tool-card a {
       display: block;
       width: 100%;
@@ -177,11 +163,9 @@
       transition: border 0.2s;
       text-decoration: none;
     }
-
     .tool-card a:hover {
       border-color: #ff99ff;
     }
-
     .tool-card img {
       width: 100%;
       height: auto;
@@ -191,12 +175,10 @@
       border-radius: 27px;
       transition: transform 0.3s, filter 0.4s;
     }
-
     .tool-card a:hover img {
       transform: scale(1.08);
       filter: drop-shadow(0 0 15px cyan);
     }
-
     .tool-card h3 {
       font-size: 1.6rem;
       font-weight: 700;
@@ -206,7 +188,6 @@
       margin: 0.4rem 0 0.3rem;
       text-shadow: 0 0 10px magenta;
     }
-
     .tool-card p {
       font-size: 1rem;
       color: #cbd5e1;
@@ -214,8 +195,6 @@
       padding: 0 0.4rem;
       text-shadow: 0 0 5px #0ff;
     }
-
-    /* FOOTER */
     footer {
       background: rgba(2, 10, 22, 0.95);
       backdrop-filter: blur(16px);
@@ -227,7 +206,6 @@
       text-align: center;
       box-shadow: 0 -10px 40px #0ff4;
     }
-
     footer a {
       text-decoration: none;
       border-bottom: none;
@@ -238,12 +216,10 @@
       color: white;
       text-shadow: 0 0 10px hotpink;
     }
-
     .footer-contact {
       font-size: 1.3rem;
       margin-bottom: 1.8rem;
     }
-
     .footer-contact strong {
       font-size: 1.8rem;
       font-weight: 700;
@@ -253,7 +229,6 @@
       display: inline-block;
       margin-bottom: 0.5rem;
     }
-
     .footer-tulsa {
       background: rgba(0, 255, 255, 0.08);
       border: 1px solid #ff44ff66;
@@ -265,13 +240,11 @@
       color: #e2f0ff;
       box-shadow: 0 0 30px #0ff4;
     }
-
     .footer-tulsa strong {
       color: #ffccff;
       font-weight: 700;
       text-shadow: 0 0 10px magenta;
     }
-
     .footer-copyright {
       border-top: 1px solid #0ff6;
       padding-top: 2rem;
@@ -282,7 +255,6 @@
       flex-direction: column;
       gap: 0.4rem;
     }
-
     @media (max-width: 1000px) {
       .grid-container {
         grid-template-columns: repeat(2, 1fr);
@@ -331,12 +303,10 @@
       <a href="tel:+19188142310">918-814-2310</a> · 
       <a href="mailto:mailworldoffice@gmail.com">mailworldoffice@gmail.com</a>
     </div>
-
     <div class="footer-tulsa">
       <strong>Tulsa’s Authorized ShipCenter & Authorized Shipping Outlet</strong><br>
       📞 CALL TODAY — RENTALS, PACKAGING, SHIPPING, AND NOTARY SERVICES FOR SMALL BUSINESSES IN TULSA
     </div>
-
     <div class="footer-copyright">
       <span>© 2026 Mail World Office, Tulsa, OK — This free website is provided by Mail World Office out of Tulsa, Oklahoma.</span>
       <span>📍 918-814-2310</span>
@@ -345,31 +315,34 @@
 
   <script>
     (function() {
-      // Each tool now has its own link (index.html-1 through index.html-12)
+      // Base path for your GitHub Pages site – your repository name is "MWO-SB"
+      const basePath = "/MWO-SB/";  // this ensures links go to the correct folder
+
       const tools = [
-        { name: "QR CODE MAKER", desc: "Custom QR codes with neon scan effects. Connects customers instantly.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-1" },
-        { name: "BUSINESS CARD MAKER", desc: "Futuristic card designs that stand out in any stack.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-2" },
-        { name: "INVOICE GENERATOR", desc: "Lightning-fast invoices with cyber security.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-3" },
-        { name: "LOGO CREATOR", desc: "AI-powered logos with holographic finish.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-4" },
-        { name: "FLYER DESIGNER", desc: "Glow-in-the-dark flyer templates.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-5" },
-        { name: "SOCIAL MEDIA POST MAKER", desc: "Synthwave layouts for all platforms.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-6" },
-        { name: "BROCHURE MAKER", desc: "Tri-fold brochures with augmented reality ready.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-7" },
-        { name: "LABEL PRINTER", desc: "Holographic address and product labels.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-8" },
-        { name: "ESTIMATE GENERATOR", desc: "Professional estimates with data encryption.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-9" },
-        { name: "RECEIPT MAKER", desc: "Digital receipts with blockchain-ready timestamps.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-10" },
-        { name: "NEWSLETTER CREATOR", desc: "Neon newsletters that pop in inboxes.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-11" },
-        { name: "POSTCARD DESIGNER", desc: "Direct mail postcards with QR + AR triggers.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "index.html-12" }
+        { name: "QR CODE MAKER", desc: "Custom QR codes with neon scan effects. Connects customers instantly.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool1.html" },
+        { name: "BUSINESS CARD MAKER", desc: "Futuristic card designs that stand out in any stack.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool2.html" },
+        { name: "INVOICE GENERATOR", desc: "Lightning-fast invoices with cyber security.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool3.html" },
+        { name: "LOGO CREATOR", desc: "AI-powered logos with holographic finish.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool4.html" },
+        { name: "FLYER DESIGNER", desc: "Glow-in-the-dark flyer templates.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool5.html" },
+        { name: "SOCIAL MEDIA POST MAKER", desc: "Synthwave layouts for all platforms.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool6.html" },
+        { name: "BROCHURE MAKER", desc: "Tri-fold brochures with augmented reality ready.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool7.html" },
+        { name: "LABEL PRINTER", desc: "Holographic address and product labels.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool8.html" },
+        { name: "ESTIMATE GENERATOR", desc: "Professional estimates with data encryption.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool9.html" },
+        { name: "RECEIPT MAKER", desc: "Digital receipts with blockchain-ready timestamps.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool10.html" },
+        { name: "NEWSLETTER CREATOR", desc: "Neon newsletters that pop in inboxes.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool11.html" },
+        { name: "POSTCARD DESIGNER", desc: "Direct mail postcards with QR + AR triggers.", img: "https://github.com/TitanBusinessPros/MWO-SB/raw/main/MW-Ad-3.png", link: "tool12.html" }
       ];
 
       const grid = document.getElementById('tools-grid');
-
       if (grid) {
         let html = '';
         for (let i = 0; i < tools.length; i++) {
           const tool = tools[i];
+          // Build absolute URL: basePath + filename
+          const fullLink = basePath + tool.link;
           html += `
             <div class="tool-card">
-              <a href="${tool.link}" target="_blank" rel="noopener">
+              <a href="${fullLink}" target="_blank" rel="noopener">
                 <img src="${tool.img}" alt="${tool.name} - free tool by Mail World Office" loading="lazy">
               </a>
               <h3>${tool.name}</h3>
