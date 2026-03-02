@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDA Template Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: visible;
+            white-space: normal; 
+            overflow-wrap: break-word;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: flex;
+            min-height: 500px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+        }
+        
+        .input-section {
+            flex: 1;
+            padding: 25px;
+            background: #f8f9fa;
+            border-right: 1px solid #eaeaea;
+        }
+        
+        .preview-section {
+            flex: 1;
+            padding: 25px;
+            background: white;
+            overflow-y: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-export {
+            background: #2c3e50;
+        }
+        
+        .btn-export:hover {
+            background: #1a252f;
+        }
+        
+        .export-options {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .export-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .nda-preview {
+            padding: 30px;
+            background: white;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nda-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #2c3e50;
+        }
+        
+        .nda-title {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .nda-party {
+            margin-bottom: 20px;
+        }
+        
+        .nda-section {
+            margin-bottom: 25px;
+        }
+        
+        .nda-section-title {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .signature-area {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .signature {
+            width: 45%;
+            padding-top: 40px;
+            border-top: 1px solid #ddd;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eaeaea;
+        }
+    </style>
+</head>
+<body>  
+    <div class="container">
+        <header>
+            <h1>NDA Template Generator</h1>
+            <p class="subtitle">Create, preview, and export Non-Disclosure Agreements in seconds, just export As PNG & Sign</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="disclosing-party">Disclosing Party</label>
+                    <input type="text" id="disclosing-party" placeholder="Company Name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="receiving-party">Receiving Party</label>
+                    <input type="text" id="receiving-party" placeholder="Individual or Company Name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="effective-date">Effective Date</label>
+                    <input type="date" id="effective-date">
+                </div>
+                
+                <div class="form-group">
+                    <label for="purpose">Purpose of Disclosure</label>
+                    <textarea id="purpose" placeholder="Describe the purpose for sharing confidential information"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="term">Agreement Term (months)</label>
+                    <input type="number" id="term" value="12" min="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="jurisdiction">Governing Law Jurisdiction</label>
+                    <input type="text" id="jurisdiction" placeholder="State or Country">
+                </div>
+                
+                <div class="export-options">
+                    <h3 class="export-title">Export Options</h3>
+                    <button class="btn btn-export" onclick="exportPNG()">Export as PNG</button>
+                </div>
+            </div>
+            
+            <div class="preview-section">
+                <h2>NDA Preview</h2>
+                <div class="nda-preview" id="nda-preview">
+                    <div class="nda-header">
+                        <h1 class="nda-title">NON-DISCLOSURE AGREEMENT</h1>
+                    </div>
+                    
+                    <div class="nda-party">
+                        <p>This Non-Disclosure Agreement (the "Agreement") is entered into by and between:</p>
+                        <p><strong><span id="preview-disclosing-party">[Disclosing Party]</span></strong> ("Disclosing Party")</p>
+                        <p>and</p>
+                        <p><strong><span id="preview-receiving-party">[Receiving Party]</span></strong> ("Receiving Party")</p>
+                    </div>
+                    
+                    <div class="nda-section">
+                        <h3 class="nda-section-title">1. Purpose</h3>
+                        <p>The purpose of this Agreement is to protect confidential information that may be disclosed between the parties for the following purpose:</p>
+                        <p><span id="preview-purpose">[Purpose of Disclosure]</span></p>
+                    </div>
+                    
+                    <div class="nda-section">
+                        <h3 class="nda-section-title">2. Confidential Information</h3>
+                        <p>For purposes of this Agreement, "Confidential Information" shall include all information or material that has or could have commercial value or other utility in the business in which Disclosing Party is engaged.</p>
+                    </div>
+                    
+                    <div class="nda-section">
+                        <h3 class="nda-section-title">3. Obligations of Receiving Party</h3>
+                        <p>Receiving Party shall hold and maintain the Confidential Information in strictest confidence for the sole and exclusive benefit of the Disclosing Party.</p>
+                    </div>
+                    
+                    <div class="nda-section">
+                        <h3 class="nda-section-title">4. Time Period</h3>
+                        <p>This Agreement shall remain in effect for <span id="preview-term">12</span> months from the Effective Date of <span id="preview-effective-date">[Effective Date]</span>.</p>
+                    </div>
+                    
+                    <div class="nda-section">
+                        <h3 class="nda-section-title">5. Governing Law</h3>
+                        <p>This Agreement shall be governed by and construed in accordance with the laws of <span id="preview-jurisdiction">[Jurisdiction]</span>.</p>
+                    </div>
+                    
+                    <div class="signature-area">
+                        <div class="signature">
+                            <p>Disclosing Party: ___________________________</p>
+                            <p>Name: ___________________________</p>
+                            <p>Title: ___________________________</p>
+                            <p>Date: ___________________________</p>
+                        </div>
+                        
+                        <div class="signature">
+                            <p>Receiving Party: ___________________________</p>
+                            <p>Name: ___________________________</p>
+                            <p>Title: ___________________________</p>
+                            <p>Date: ___________________________</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Disclaimer: This NDA generator provides a template for informational purposes only and does not constitute legal advice.</p>
+            <p>© 2026 Titan Business Pros LLC</p>
+        </footer>
+    </div>
+
+    <script>
+        // Update preview as user types
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+        
+        // Set default effective date to today (local date)
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        document.getElementById('effective-date').value = `${year}-${month}-${day}`;
+        
+        // Initial preview update
+        updatePreview();
+        
+        function updatePreview() {
+            document.getElementById('preview-disclosing-party').textContent = 
+                document.getElementById('disclosing-party').value || '[Disclosing Party]';
+                
+            document.getElementById('preview-receiving-party').textContent = 
+                document.getElementById('receiving-party').value || '[Receiving Party]';
+                
+            document.getElementById('preview-purpose').textContent = 
+                document.getElementById('purpose').value || '[Purpose of Disclosure]';
+                
+            document.getElementById('preview-term').textContent = 
+                document.getElementById('term').value || '12';
+                
+            // Fix date display: manually parse YYYY-MM-DD to avoid timezone shifts
+            const dateStr = document.getElementById('effective-date').value;
+            if (dateStr) {
+                const [year, month, day] = dateStr.split('-').map(Number);
+                // Create a date object using local time components
+                const date = new Date(year, month - 1, day);
+                document.getElementById('preview-effective-date').textContent = 
+                    date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            } else {
+                document.getElementById('preview-effective-date').textContent = '[Effective Date]';
+            }
+            
+            document.getElementById('preview-jurisdiction').textContent = 
+                document.getElementById('jurisdiction').value || '[Jurisdiction]';
+        }
+        
+        function exportPNG() {
+            const ndaContent = document.getElementById('nda-preview');
+            
+            html2canvas(ndaContent).then(canvas => {
+                // Create a download link for the PNG image
+                const link = document.createElement('a');
+                link.download = 'NDA_Agreement.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+        
+        function exportHTML() {
+            const ndaContent = document.getElementById('nda-preview').innerHTML;
+            const style = `
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; padding: 40px; color: #333; }
+                    .nda-header { text-align: center; margin-bottom: 30px; }
+                    .nda-title { font-size: 24px; color: #2c3e50; }
+                    .nda-section { margin-bottom: 20px; }
+                    .nda-section-title { font-size: 18px; color: #2c3e50; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+                    .signature-area { margin-top: 40px; display: flex; justify-content: space-between; }
+                    .signature { width: 45%; padding-top: 40px; border-top: 1px solid #ddd; }
+                </style>
+            `;
+            
+            const htmlContent = `<!DOCTYPE html><html><head><title>NDA Agreement</title>${style}</head><body>${ndaContent}</body></html>`;
+            
+            // Create a Blob object with the HTML content
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Create a download link for the HTML file
+            const link = document.createElement('a');
+            link.download = 'NDA_Agreement.html';
+            link.href = URL.createObjectURL(blob);
+            link.click();
+            
+            // Clean up
+            URL.revokeObjectURL(link.href);
+        }
+    </script>
+    
+    <!-- Back to Directory Button -->
+    <button class="back-button" onclick="goToDirectory()">⬅ Push me to go back</button>
+    <style>
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #e0e0e0;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 14px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.2s ease;
+            z-index: 9999;
+        }
+        .back-button:hover {
+            background-color: #d5d5d5;
+        }
+    </style>
+
+    <script>
+        function goToDirectory() {
+            google.script.run.withSuccessHandler(function(htmlContent) {
+                document.open();
+                document.write(htmlContent);
+                document.close();
+            }).getDirectoryContent();
+        }
+    </script>  
+</body>
+</html>
